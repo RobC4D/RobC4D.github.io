@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>First Page</title>
+	<link href="Style.css" rel=stylesheet type="text/css">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['area', 'number of testkit'],
+          ['Europe',     3],
+          ['America',      2],
+          ['Asia',  5],
+          ['Oceania', 1],
+          ['Africa',    7]
+        ]);
+
+        var options = {
+          title: 'Here is the repartition of the test-kits all around the world',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
+	
+</head>
+<body>
+<h1>Welcome to the website of the Toilet Challenge</h1>
+<div id="donutchart" style="width: 900px; height: 500px;margin-left: auto;margin-right: auto;"></div>
+<a>Click here to see the data of the test-kit 1<a href="Tdata.php">here</a></a>
+<input type="button" value="Click here to see the data of the test-kit 1" href="Tdata.php" />
+   <footer>
+    	<p>
+
+	   	</p>
+	</footer>
+</body>
+</html>
