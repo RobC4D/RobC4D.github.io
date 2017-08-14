@@ -5,9 +5,26 @@
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+<script type="text/javascript">
+ //refresh the page
+  setTimeout(function(){
+    location = ''
+  },5000)
+  
+  //open the daemon
+  var myWindow;
+  function openWin() 
+	{
+		myWindow = window.open("DaemonCollector.php", "", "width=800, height=200");
+	}
+  
+</script>
+
 <a>To connect the database click <a href="http://localhost:8080/">here</a></a></br>
+
+<input type="button" value="Start Receiving Data" onclick="openWin();myVar = setInterval(openWin, 29000)" />
+
 <h1>Temperature Data</h1>
-	
 	
 <?php
 //Récupération des variables de sessions en début de page
@@ -34,16 +51,12 @@ while ($vResult = mysqli_fetch_array($vQuery))
 
 ?>
 
-
-
 <!--Div that will hold the pie chart-->
 <div id="chart_div"></div>
 <script type="text/javascript">
 var id0 =<?php echo json_encode($id); ?>;
 var value0 =<?php echo json_encode($value); ?>;
 var time0 =<?php echo json_encode($time); ?>;				
-
-
       // Load the Visualization API and the corechart package.
       google.charts.load('current', {'packages':['corechart']});
 
