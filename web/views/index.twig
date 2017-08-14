@@ -1,6 +1,30 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<p>Index ici</p>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['area', 'number of testkit'],
+          ['Europe',     3],
+          ['America',      2],
+          ['Asia',  5],
+          ['Oceania', 1],
+          ['Africa',    7]
+        ]);
+
+        var options = {
+          title: 'Here is the repartition of the test-kits all around the world',
+          pieHole: 0.4,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
 <div class="jumbotron text-center">
   <div class="container">
     <a href="/" class="lang-logo">
@@ -53,5 +77,5 @@
     Please do work through the Getting Started guide, even if you do know how to build such an application.  The guide covers the basics of working with Heroku, and will familiarize you with all the concepts you need in order to build and deploy your own apps.
   </div>
 </div>
-
+<p>Et la</p>
 {% endblock %}
