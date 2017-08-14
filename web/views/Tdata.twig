@@ -3,4 +3,89 @@
 {% block content %}
 <p>Coucou</p>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<a>To connect the database click <a href="http://localhost:8080/">here</a></a></br>
+<h1>Temperature Data</h1>
+	
+	
+<?php
+//Récupération des variables de sessions en début de page
+session_start();
+//*database connection
+include('connection.php');	
+$vSql ="SELECT ID_T, Value_T,heure,minute,second FROM temperature data ORDER BY ID_T ;";
+$vQuery=mysqli_query($vConn,$vSql);
+?>	
+	
+<?php
+$id=array();
+$value=array();
+$time=array();
+
+while ($vResult = mysqli_fetch_array($vQuery)) 
+{
+
+	$id = array_merge($id,array($vResult['ID_T']));
+	$value = array_merge($value,array($vResult['Value_T']));
+	$time = array_merge($time,array($vResult['heure'].":".$vResult['minute'].":".$vResult['second']));
+
+}
+
+?>
+
+
+
+<!--Div that will hold the pie chart-->
+<div id="chart_div"></div>
+<script type="text/javascript">
+var id0 =<?php echo json_encode($id); ?>;
+var value0 =<?php echo json_encode($value); ?>;
+var time0 =<?php echo json_encode($time); ?>;				
+
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(drawChart);
+
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+      function drawChart() {
+		
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+		
+        data.addColumn('string', 'Topuuuuping');
+        data.addColumn('number', 'Temperature');
+for (i = value0.length-10; i < value0.length; i++) 
+	{ 
+		data.addRows([
+          [time0[i].toString(), Number(value0[i].toString())]
+		  ]);
+	}
+        // Set chart options
+        var options = {
+		'title':'Temperature Chart of the last 10 records',
+        'width':1500,
+        'height':700,
+		hAxis: {
+			title: 'ID'
+				},
+        vAxis: {
+          title: 'Value (°C)'
+				},
+        colors: ['#007329', '#AB0D06'],
+        trendlines: {
+          0: {type: 'exponential', color: '#333', opacity: 1},
+          1: {type: 'linear', color: '#111', opacity: .3}
+        }};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>	
 {% endblock %}
