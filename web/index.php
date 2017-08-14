@@ -25,4 +25,12 @@ $app->get('/Tdata.twig', function() use($app) {
   $app['monolog']->addDebug('logging output.');
   return $app['twig']->render('Tdata.twig');
 });
+$app->get('/DaemonCollector.php', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+  return $app['twig']->render('DaemonCollector.php');
+});
+$app->get('/Subscription.php', function() use($app) {
+  $app['monolog']->addDebug('logging output.');
+  return $app['twig']->render('Subscription.php');
+});
 $app->run();
